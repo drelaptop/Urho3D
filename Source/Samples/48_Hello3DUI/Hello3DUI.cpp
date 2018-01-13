@@ -267,7 +267,7 @@ void Hello3DUI::HandleDragBegin(StringHash eventType, VariantMap& eventData)
 void Hello3DUI::HandleDragMove(StringHash eventType, VariantMap& eventData)
 {
     IntVector2 dragCurrentPosition = IntVector2(eventData["X"].GetInt(), eventData["Y"].GetInt());
-    UIElement* draggedElement = static_cast<UIElement*>(eventData["Element"].GetPtr());
+    UIElement* draggedElement = dynamic_cast<UIElement*>(eventData["Element"].GetPtr());
     draggedElement->SetPosition(dragCurrentPosition - dragBeginPosition_);
 }
 
@@ -287,7 +287,7 @@ void Hello3DUI::HandleControlClicked(StringHash eventType, VariantMap& eventData
     auto* windowTitle = window_->GetChildStaticCast<Text>("WindowTitle", true);
 
     // Get control that was clicked
-    auto* clicked = static_cast<UIElement*>(eventData[UIMouseClick::P_ELEMENT].GetPtr());
+    auto* clicked = dynamic_cast<UIElement*>(eventData[UIMouseClick::P_ELEMENT].GetPtr());
 
     String name = "...?";
     if (clicked)

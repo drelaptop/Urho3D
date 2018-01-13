@@ -266,7 +266,7 @@ void Chat::HandleNetworkMessage(StringHash eventType, VariantMap& eventData)
         // If we are a client, just display the message
         if (network->IsServerRunning())
         {
-            auto* sender = static_cast<Connection*>(eventData[P_CONNECTION].GetPtr());
+            auto* sender = dynamic_cast<Connection*>(eventData[P_CONNECTION].GetPtr());
 
             text = sender->ToString() + " " + text;
 

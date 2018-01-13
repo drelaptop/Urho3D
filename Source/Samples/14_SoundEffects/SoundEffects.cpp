@@ -174,7 +174,7 @@ Slider* SoundEffects::CreateSlider(int x, int y, int xSize, int ySize, const Str
 
 void SoundEffects::HandlePlaySound(StringHash eventType, VariantMap& eventData)
 {
-    auto* button = static_cast<Button*>(GetEventSender());
+    auto* button = dynamic_cast<Button*>(GetEventSender());
     const String& soundResourceName = button->GetVar(VAR_SOUNDRESOURCE).GetString();
 
     // Get the sound resource

@@ -187,7 +187,7 @@ void Character2D::HandleWoundedState(float timeStep)
         // Update lifes UI and counter
         remainingLifes_ -= 1;
         auto* ui = GetSubsystem<UI>();
-        Text* lifeText = static_cast<Text*>(ui->GetRoot()->GetChild("LifeText", true));
+        Text* lifeText = dynamic_cast<Text*>(ui->GetRoot()->GetChild("LifeText", true));
         lifeText->SetText(String(remainingLifes_)); // Update lifes UI counter
 
         // Reset wounded state
@@ -218,10 +218,10 @@ void Character2D::HandleDeath()
 
     // Update UI elements
     auto* ui = GetSubsystem<UI>();
-    Text* instructions = static_cast<Text*>(ui->GetRoot()->GetChild("Instructions", true));
+    Text* instructions = dynamic_cast<Text*>(ui->GetRoot()->GetChild("Instructions", true));
     instructions->SetText("!!! GAME OVER !!!");
-    static_cast<Text*>(ui->GetRoot()->GetChild("ExitButton", true))->SetVisible(true);
-    static_cast<Text*>(ui->GetRoot()->GetChild("PlayButton", true))->SetVisible(true);
+    dynamic_cast<Text*>(ui->GetRoot()->GetChild("ExitButton", true))->SetVisible(true);
+    dynamic_cast<Text*>(ui->GetRoot()->GetChild("PlayButton", true))->SetVisible(true);
 
     // Show mouse cursor so that we can click
     auto* input = GetSubsystem<Input>();

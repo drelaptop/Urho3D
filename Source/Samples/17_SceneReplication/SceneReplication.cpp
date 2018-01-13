@@ -467,7 +467,7 @@ void SceneReplication::HandleClientConnected(StringHash eventType, VariantMap& e
     using namespace ClientConnected;
 
     // When a client connects, assign to scene to begin scene replication
-    auto* newConnection = static_cast<Connection*>(eventData[P_CONNECTION].GetPtr());
+    auto* newConnection = dynamic_cast<Connection*>(eventData[P_CONNECTION].GetPtr());
     newConnection->SetScene(scene_);
 
     // Then create a controllable object for that client
@@ -485,7 +485,7 @@ void SceneReplication::HandleClientDisconnected(StringHash eventType, VariantMap
     using namespace ClientConnected;
 
     // When a client disconnects, remove the controlled object
-    auto* connection = static_cast<Connection*>(eventData[P_CONNECTION].GetPtr());
+    auto* connection = dynamic_cast<Connection*>(eventData[P_CONNECTION].GetPtr());
     Node* object = serverObjects_[connection];
     if (object)
         object->Remove();

@@ -586,7 +586,7 @@ void CrowdNavigation::HandleCrowdAgentFailure(StringHash eventType, VariantMap& 
 {
     using namespace CrowdAgentFailure;
 
-    auto* node = static_cast<Node*>(eventData[P_NODE].GetPtr());
+    auto* node = dynamic_cast<Node*>(eventData[P_NODE].GetPtr());
     auto agentState = (CrowdAgentState)eventData[P_CROWD_AGENT_STATE].GetInt();
 
     // If the agent's state is invalid, likely from spawning on the side of a box, find a point in a larger area
@@ -605,8 +605,8 @@ void CrowdNavigation::HandleCrowdAgentReposition(StringHash eventType, VariantMa
 
     using namespace CrowdAgentReposition;
 
-    auto* node = static_cast<Node*>(eventData[P_NODE].GetPtr());
-    auto* agent = static_cast<CrowdAgent*>(eventData[P_CROWD_AGENT].GetPtr());
+    auto* node = dynamic_cast<Node*>(eventData[P_NODE].GetPtr());
+    auto* agent = dynamic_cast<CrowdAgent*>(eventData[P_CROWD_AGENT].GetPtr());
     Vector3 velocity = eventData[P_VELOCITY].GetVector3();
     float timeStep = eventData[P_TIMESTEP].GetFloat();
 
@@ -643,8 +643,8 @@ void CrowdNavigation::HandleCrowdAgentFormation(StringHash eventType, VariantMap
     // The first agent will always move to the exact position, all other agents will select a random point nearby
     if (index)
     {
-        auto* crowdManager = static_cast<CrowdManager*>(GetEventSender());
-        auto* agent = static_cast<CrowdAgent*>(eventData[P_CROWD_AGENT].GetPtr());
+        auto* crowdManager = dynamic_cast<CrowdManager*>(GetEventSender());
+        auto* agent = dynamic_cast<CrowdAgent*>(eventData[P_CROWD_AGENT].GetPtr());
         eventData[P_POSITION] = crowdManager->GetRandomPointInCircle(position, agent->GetRadius(), agent->GetQueryFilterType());
     }
 }

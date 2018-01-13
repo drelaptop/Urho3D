@@ -213,7 +213,7 @@ SharedPtr<DropDownList> Typography::CreateMenu(const String& label, const char**
 
 void Typography::HandleWhiteBackground(StringHash eventType, VariantMap& eventData)
 {
-    auto* box = static_cast<CheckBox*>(eventData[Toggled::P_ELEMENT].GetPtr());
+    auto* box = dynamic_cast<CheckBox*>(eventData[Toggled::P_ELEMENT].GetPtr());
     bool checked = box->IsChecked();
 
     Color fg = checked ? Color::BLACK : Color::WHITE;
@@ -232,14 +232,14 @@ void Typography::HandleWhiteBackground(StringHash eventType, VariantMap& eventDa
 
 void Typography::HandleForceAutoHint(StringHash eventType, VariantMap& eventData)
 {
-    auto* box = static_cast<CheckBox*>(eventData[Toggled::P_ELEMENT].GetPtr());
+    auto* box = dynamic_cast<CheckBox*>(eventData[Toggled::P_ELEMENT].GetPtr());
     bool checked = box->IsChecked();
     GetSubsystem<UI>()->SetForceAutoHint(checked);
 }
 
 void Typography::HandleSRGB(StringHash eventType, VariantMap& eventData)
 {
-    auto* box = static_cast<CheckBox*>(eventData[Toggled::P_ELEMENT].GetPtr());
+    auto* box = dynamic_cast<CheckBox*>(eventData[Toggled::P_ELEMENT].GetPtr());
     bool checked = box->IsChecked();
 
     auto* graphics = GetSubsystem<Graphics>();
@@ -258,21 +258,21 @@ void Typography::HandleSRGB(StringHash eventType, VariantMap& eventData)
 
 void Typography::HandleFontHintLevel(StringHash eventType, VariantMap& eventData)
 {
-    auto* list = static_cast<DropDownList*>(eventData[Toggled::P_ELEMENT].GetPtr());
+    auto* list = dynamic_cast<DropDownList*>(eventData[Toggled::P_ELEMENT].GetPtr());
     unsigned i = list->GetSelection();
     GetSubsystem<UI>()->SetFontHintLevel((FontHintLevel)i);
 }
 
 void Typography::HandleFontSubpixel(StringHash eventType, VariantMap& eventData)
 {
-    auto* list = static_cast<DropDownList*>(eventData[Toggled::P_ELEMENT].GetPtr());
+    auto* list = dynamic_cast<DropDownList*>(eventData[Toggled::P_ELEMENT].GetPtr());
     unsigned i = list->GetSelection();
     GetSubsystem<UI>()->SetFontSubpixelThreshold(i * 3);
 }
 
 void Typography::HandleFontOversampling(StringHash eventType, VariantMap& eventData)
 {
-    auto* list = static_cast<DropDownList*>(eventData[Toggled::P_ELEMENT].GetPtr());
+    auto* list = dynamic_cast<DropDownList*>(eventData[Toggled::P_ELEMENT].GetPtr());
     unsigned i = list->GetSelection();
     GetSubsystem<UI>()->SetFontOversampling(i + 1);
 }
