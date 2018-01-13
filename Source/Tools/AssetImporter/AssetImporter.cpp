@@ -61,6 +61,7 @@ using namespace Urho3D;
 struct OutModel
 {
     OutModel() :
+        rootNode_(nullptr),
         rootBone_(nullptr),
         totalVertices_(0),
         totalIndices_(0)
@@ -85,7 +86,7 @@ struct OutModel
 struct OutScene
 {
     String outName_;
-    aiNode* rootNode_;
+    aiNode* rootNode_{};
     Vector<OutModel> models_;
     PODVector<aiNode*> nodes_;
     PODVector<unsigned> nodeModelIndices_;

@@ -93,13 +93,13 @@ struct ModelVertex
     Vector3 cubeTexCoord1_;
     Vector3 cubeTexCoord2_;
     Vector4 tangent_;
-    float blendWeights_[4];
-    unsigned char blendIndices_[4];
+    float blendWeights_[4]{};
+    unsigned char blendIndices_[4]{};
     bool hasBlendWeights_;
-    
-    unsigned useCount_;
-    int cachePosition_;
-    float score_;
+
+    unsigned useCount_{};
+    int cachePosition_{};
+    float score_{};
 };
 
 struct ModelVertexBuffer
@@ -108,18 +108,18 @@ struct ModelVertexBuffer
     unsigned morphStart_;
     unsigned morphCount_;
     Vector<ModelVertex> vertices_;
-    
+
     ModelVertexBuffer() :
         elementMask_(0),
         morphStart_(0),
         morphCount_(0)
     {
     }
-    
+
     void WriteData(Serializer& dest)
     {
         dest.WriteUInt(vertices_.Size());
-        
+
         PODVector<VertexElement> elements = VertexBuffer::GetElements(elementMask_);
         dest.WriteUInt(elements.Size());
         for (unsigned j = 0; j < elements.Size(); ++j)
@@ -132,7 +132,7 @@ struct ModelVertexBuffer
 
         dest.WriteUInt(morphStart_);
         dest.WriteUInt(morphCount_);
-        
+
         for (unsigned i = 0; i < vertices_.Size(); ++i)
         {
             if (elementMask_ & MASK_POSITION)
@@ -170,7 +170,7 @@ struct ModelMorph
 {
     String name_;
     Vector<ModelMorphBuffer> buffers_;
-    
+
     void WriteData(Serializer& dest)
     {
         dest.WriteString(name_);
@@ -181,7 +181,7 @@ struct ModelMorph
             dest.WriteUInt(buffers_[i].elementMask_);
             dest.WriteUInt(buffers_[i].vertices_.Size());
             unsigned elementMask = buffers_[i].elementMask_;
-            
+
             for (Vector<Pair<unsigned, ModelVertex> >::Iterator j = buffers_[i].vertices_.Begin();
                 j != buffers_[i].vertices_.End(); ++j)
             {
@@ -201,17 +201,17 @@ struct ModelIndexBuffer
 {
     unsigned indexSize_;
     PODVector<unsigned> indices_;
-    
+
     ModelIndexBuffer() :
         indexSize_(sizeof(unsigned short))
     {
     }
-    
+
     void WriteData(Serializer& dest)
     {
         dest.WriteUInt(indices_.Size());
         dest.WriteUInt(indexSize_);
-        
+
         for (unsigned i = 0; i < indices_.Size(); ++i)
         {
             if (indexSize_ == sizeof(unsigned short))
@@ -232,10 +232,11 @@ struct ModelSubGeometryLodLevel
     unsigned indexCount_;
     HashMap<unsigned, PODVector<BoneWeightAssignment> > boneWeights_;
     PODVector<unsigned> boneMapping_;
-    
-    ModelSubGeometryLodLevel() : 
+
+    ModelSubGeometryLodLevel() :
         distance_(0.0f),
         primitiveType_(TRIANGLE_LIST),
+        vertexBuffer_(0),
         indexBuffer_(0),
         indexStart_(0),
         indexCount_(0)

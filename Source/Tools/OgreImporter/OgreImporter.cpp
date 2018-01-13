@@ -480,7 +480,7 @@ void LoadMesh(const String& inputFileName, bool generateTangents, bool splitSubM
                     unsigned bone = boneAssignment.GetInt("boneindex");
                     float weight = boneAssignment.GetFloat("weight");
 
-                    BoneWeightAssignment assign;
+                    BoneWeightAssignment assign{};
                     assign.boneIndex_ = bone;
                     assign.weight_ = weight;
                     // Source data might have 0 weights. Disregard these
@@ -1091,7 +1091,7 @@ void OptimizeIndices(ModelSubGeometryLodLevel* subGeom, ModelVertexBuffer* vb, M
 
     for (unsigned i = subGeom->indexStart_; i < subGeom->indexStart_ + subGeom->indexCount_; i += 3)
     {
-        Triangle triangle;
+        Triangle triangle{};
         triangle.v0_ = ib->indices_[i];
         triangle.v1_ = ib->indices_[i + 1];
         triangle.v2_ = ib->indices_[i + 2];

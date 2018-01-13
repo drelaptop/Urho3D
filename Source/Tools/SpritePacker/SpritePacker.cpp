@@ -72,6 +72,8 @@ public:
         y(0),
         offsetX(0),
         offsetY(0),
+        width(0),
+        height(0),
         frameWidth(0),
         frameHeight(0),
         frameX(0),
@@ -297,7 +299,7 @@ void Run(Vector<String>& arguments)
             if (success && textureHeight * textureWidth > packedWidth * packedHeight)
                 continue;
 
-            stbrp_context packerContext;
+            stbrp_context packerContext{};
             stbrp_node packerMemory[PACKER_NUM_NODES];
             stbrp_init_target(&packerContext, textureWidth, textureHeight, packerMemory, packerInfos.Size());
             stbrp_pack_rects(&packerContext, packerRects, packerInfos.Size());
